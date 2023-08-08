@@ -1,20 +1,28 @@
 from langchain import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
+from dotenv import load_dotenv
 
 from agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
+from agents.twitter_lookup_agent import twitter_lookup_agent
 from third_parties.linkedin import scrape_linkedin_profile
 
+load_dotenv()
+
+name="Pablo arango publicis"
 
 if __name__ == "__main__":
     print("Hello LangChain!")
 
-    linkedin_profile_url = linkedin_lookup_agent(name="Eden Marco Udemy")
+    linkedin_profile_url = linkedin_lookup_agent(name=name)
+
+    twitter_username = twitter_lookup_agent(name=name)
 
     summary_template = """
          given the Linkedin information {information} about a person from I want you to create:
          1. a short summary
          2. two interesting facts about them
+         3. a topic to start a conversation with them
      """
 
     summary_prompt_template = PromptTemplate(
@@ -28,3 +36,4 @@ if __name__ == "__main__":
     linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_profile_url)
 
     print(chain.run(information=linkedin_data))
+
