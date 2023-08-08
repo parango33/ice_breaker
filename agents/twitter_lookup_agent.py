@@ -1,5 +1,7 @@
 from langchain import PromptTemplate
 from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
+load_dotenv()
 
 from langchain.agents import initialize_agent, Tool, AgentType
 
