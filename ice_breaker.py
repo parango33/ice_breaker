@@ -11,11 +11,12 @@ from output_parsers import person_intel_parser, PersonIntel
 from dotenv import load_dotenv
 load_dotenv()
 
-name = "Harrison Chase"
+name = "Fernando Mina Publicis"
 
 def ice_break(name:str) -> Tuple[PersonIntel,str]:
     linkedin_profile_url = linkedin_lookup_agent(name=name)
     linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_profile_url)
+
 
     #twitter_username = twitter_lookup_agent(name=name)
     #tweets = scrape_user_tweets(username=twitter_username, num_tweets=5)
@@ -27,6 +28,7 @@ def ice_break(name:str) -> Tuple[PersonIntel,str]:
         2. two interesting facts about them
         3. A topic that may interest them
         4. 2 creative Ice breakers to open a conversation with them 
+        Limit your output to 1000 characters
         \n{format_instructions} 
     """
 
@@ -41,9 +43,9 @@ def ice_break(name:str) -> Tuple[PersonIntel,str]:
 
     chain = LLMChain(llm=llm, prompt=summary_prompt_template)
 
-    result = chain.run(linkedin_information=linkedin_data)
+    result = chain.run(linkedin_information=)
     #print(result)
     return person_intel_parser.parse(result), linkedin_data.get("profile_pic_url")
 
 if __name__ == "__main__":
-    ice_break("camilo lopez citibank")
+    ice_break("Fernando Mina Publicis")
